@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 34,
     textAlign: 'center'
+  },
+  content: {
+    width: '50%'
   }
 }));
 

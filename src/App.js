@@ -8,6 +8,10 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+// components
+import Account from 'Account';
+import Personal from 'Personal';
+
 // styles
 import useStyles from './styles';
 
@@ -15,25 +19,27 @@ function getSteps() {
   return ['Account', 'Personal', 'Payment', 'Confirm'];
 }
 
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0:
-      return 'Account';
-    case 1:
-      return 'Personal';
-    case 2:
-      return 'Payment';
-    case 3:
-      return 'Confirm';
-    default:
-      return 'Unknown stepIndex';
-  }
-}
 
 export default function App() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+
+
+  function getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return <Account />;
+      case 1:
+        return <Personal />;
+      case 2:
+        return 'Payment';
+      case 3:
+        return 'Confirm';
+      default:
+        return 'Unknown stepIndex';
+    }
+  }
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -64,7 +70,7 @@ export default function App() {
         </Grid>
         <Grid item xs={12}>
           <Grid container justify="center">
-            <div>
+            <div className={classes.content}>
               {activeStep === steps.length ? (
                 <>
                   <Typography className={classes.instructions}>All steps completed</Typography>
