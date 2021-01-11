@@ -78,7 +78,7 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                  <div className={classes.instructions}>{getStepContent(activeStep)}</div>
                   <br/><br/><br/>
                   <div>
                     <Button
