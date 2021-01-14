@@ -1,43 +1,39 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { Formik, Field, Form, FieldArray } from 'formik';
-import Select from "react-select";
 
 // material core
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-const options = [
-  { value: "Abe", label: "Abe", customAbbreviation: "A" },
-  { value: "John", label: "John", customAbbreviation: "J" },
-  { value: "Dustin", label: "Dustin", customAbbreviation: "D" }
-];
+import AutoCompleteScroll from './AutoCompleteScroll';
+import CustomLabelSelect from './CustomLabelSelect';
 
+// const options = [
+//   { value: "Abe", label: "Abe", customAbbreviation: "A" },
+//   { value: "John", label: "John", customAbbreviation: "J" },
+//   { value: "Dustin", label: "Dustin", customAbbreviation: "D" }
+// ];
 
-const Option = (props) => {
-  console.log("props", props);
-  const { innerProps, innerRef, data } = props;
-  return (
-    <article ref={innerRef} {...innerProps}>
-      <h4>{data.label}</h4> component
-      <h5>Genre: {data.value}</h5>
-      <h6>
-        {data.customAbbreviation}
-      </h6>
-    </article>
-  );
-};
+// const Option = (props) => {
+//   console.log("props", props);
+//   const { innerProps, innerRef, data } = props;
+//   return (
+//     <article ref={innerRef} {...innerProps}>
+//       <h4>{data.label}</h4> component
+//       <h5>Genre: {data.language_region}</h5>
+//       <h6>
+//         {data.customAbbreviation}
+//       </h6>
+//     </article>
+//   );
+// };
 
-const formatOptionLabel = ({ value, label, customAbbreviation }) => (
-  <div style={{ display: "flex" }}>
-    <div>{label}</div>
-    truong
-    <br/>
-    <div style={{ marginLeft: "10px", color: "#ccc" }}>
-      {customAbbreviation}
-    </div>
-  </div>
-);
+// const formatOptionLabel = ({ language_region }) => (
+//   <div style={{ display: "flex" }}>
+//     <div>{language_region}</div>
+//   </div>
+// );
 
 function Account() {
   const initialValues = {
@@ -60,14 +56,14 @@ function Account() {
 
   return (
     <>
-      <b>Friends FieldArray</b>
-      <Select
-        defaultValue={options[0]}
-        formatOptionLabel={formatOptionLabel}
-        components={{ Option }}
-        options={options}
-      />
-      <br/>
+      <h2>Autocomplete Visualize List</h2>
+      <AutoCompleteScroll />
+
+      <h2>Custome Label React Select</h2>
+      <CustomLabelSelect />
+
+      <h2>Friends FieldArray</h2>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -110,7 +106,7 @@ function Account() {
                                   type="text" 
                                   label="Email Address" 
                                   variant="outlined"
-                                  error={meta.error && meta.touched ? 1 : 0}
+                                  errornpm={meta.error && meta.touched ? 1 : 0}
                                   helperText={meta.error && meta.touched ? meta.error : ''}
                                   {...field}
                                 />
