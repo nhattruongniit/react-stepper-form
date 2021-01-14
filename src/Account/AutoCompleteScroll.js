@@ -5,6 +5,8 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import match from 'autosuggest-highlight/match';
 import { VariableSizeList as List } from 'react-window';
 
+import CustomLabel from './CustomLabel';
+
 import TextField from '@material-ui/core/TextField';
 const locales = [];
 for (let i = 0; i < 500; i = i + 1) {
@@ -23,7 +25,6 @@ for (let i = 0; i < 500; i = i + 1) {
 
 const renderRow = (props) => {
   const { style, index, data } = props;
-  console.log('renderRow', props)
   return (
     <div style={style}>{data[index]}</div>
   )

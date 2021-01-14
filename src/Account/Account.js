@@ -9,32 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import AutoCompleteScroll from './AutoCompleteScroll';
 import CustomLabelSelect from './CustomLabelSelect';
 
-// const options = [
-//   { value: "Abe", label: "Abe", customAbbreviation: "A" },
-//   { value: "John", label: "John", customAbbreviation: "J" },
-//   { value: "Dustin", label: "Dustin", customAbbreviation: "D" }
-// ];
-
-// const Option = (props) => {
-//   console.log("props", props);
-//   const { innerProps, innerRef, data } = props;
-//   return (
-//     <article ref={innerRef} {...innerProps}>
-//       <h4>{data.label}</h4> component
-//       <h5>Genre: {data.language_region}</h5>
-//       <h6>
-//         {data.customAbbreviation}
-//       </h6>
-//     </article>
-//   );
-// };
-
-// const formatOptionLabel = ({ language_region }) => (
-//   <div style={{ display: "flex" }}>
-//     <div>{language_region}</div>
-//   </div>
-// );
-
 function Account() {
   const initialValues = {
     friends: [
