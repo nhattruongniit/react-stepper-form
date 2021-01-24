@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 
 import AutoCompleteScroll from './AutoCompleteScroll';
 import CustomLabelSelect from './CustomLabelSelect';
+import TextFieldBase from 'components/TextFieldBase';
 
 function Account() {
   const initialValues = {
@@ -30,6 +31,9 @@ function Account() {
 
   return (
     <>
+      <h2>Setimeout text field</h2>
+      <TextFieldBase value="abc" onChangeValue={e => console.log(e)} />
+
       <h2>Autocomplete Visualize List</h2>
       <AutoCompleteScroll />
 

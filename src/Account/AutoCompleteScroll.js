@@ -4,7 +4,7 @@ import parse from 'autosuggest-highlight/parse';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import match from 'autosuggest-highlight/match';
 import { VariableSizeList as List } from 'react-window';
-
+import InputBase from '@material-ui/core/InputBase';
 import CustomLabel from './CustomLabel';
 
 import TextField from '@material-ui/core/TextField';
@@ -112,7 +112,15 @@ function AutoCompleteScroll() {
           </div>
         );
       }}
-      renderInput={(params) => <TextField {...params} label="Locales" variant="outlined" />}
+      renderInput={(params) => {
+        console.log(params)
+        return (
+          <>
+            <TextField {...params} label="Locales" variant="outlined" ListboxComponent={CustomLabel}/>
+          </>
+          
+        )
+      }}
     />
   )
 }
