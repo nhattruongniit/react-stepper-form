@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiAutocomplete-option {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.headerIndent {
+  width: 100%;
+  margin: 10px 0 20px;
+  text-align: left;
+  line-height: 0.1em;
+  border-bottom: 1px solid #000;
+  pointer-events: none;
+}
+
+.headerIndent span {
+  padding-right: 5px;
+  background-color: white;
+}

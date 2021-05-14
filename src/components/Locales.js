@@ -5,23 +5,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import match from 'autosuggest-highlight/match';
 import { VariableSizeList as List } from 'react-window';
 
-import CustomLabel from './CustomLabel';
-
 import TextField from '@material-ui/core/TextField';
-const locales = [];
-for (let i = 0; i < 500; i = i + 1) {
-  locales.push({ 
-    createdAt: "2020-11-04 17:30:43",
-    createdBy: null,
-    description: null,
-    id: i,
-    language_region: `Afrikaans-${i}`,
-    language_subtag: "af",
-    updatedAt: "2020-11-04 17:30:43",
-    updatedBy: null,
-    version: 0,
-  });
-}
 
 const renderRow = (props) => {
   const { style, index, data } = props;
@@ -91,10 +75,32 @@ const ListboxComponent = React.forwardRef(function ListboxComponent(props, ref) 
   )
 });
 
-function AutoCompleteScroll() {
+const locales = [];
+for (let i = 0; i < 500; i = i + 1) {
+  locales.push({ 
+    createdAt: "2020-11-04 17:30:43",
+    createdBy: null,
+    description: null,
+    id: i,
+    language_region: `Afrikaans-${i}`,
+    language_subtag: "af",
+    updatedAt: "2020-11-04 17:30:43",
+    updatedBy: null,
+    version: 0,
+  });
+}
+
+function Locales() {
+  const [value, setValue] = React.useState(locales[0]);
+
+  function onChange(_, value) {
+    setValue(value);
+  };
+
   return (
     <Autocomplete
-      id="combo-box-demo"
+      id="locales"
+      value={value}
       options={locales}
       getOptionLabel={(option) => option.language_region}
       ListboxComponent={ListboxComponent}
@@ -113,8 +119,9 @@ function AutoCompleteScroll() {
         );
       }}
       renderInput={(params) => <TextField {...params} label="Locales" variant="outlined" />}
+      onChange={onChange}
     />
   )
 }
 
-export default AutoCompleteScroll
+export default Locales;

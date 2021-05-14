@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   content: {
-    width: '50%'
+    width: '100%'
+  },
+  autoComplete: {
+    
   }
 }));
 
