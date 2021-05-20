@@ -1,3 +1,5 @@
 # REACT FORM MATERIAL UI
 
-- Multiple & Group
+- Multiple & Group Autocomplete
+- react-hook-forms
+- react-jsonschema-form

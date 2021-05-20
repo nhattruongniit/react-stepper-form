@@ -12,6 +12,7 @@
     "autosuggest-highlight": "^3.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^7.6.3",
     "react-scripts": "4.0.1",
     "react-window": "^1.8.6",
     "uuid": "^8.3.2",

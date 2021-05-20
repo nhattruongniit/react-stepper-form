@@ -1,10 +1,11 @@
 import React from 'react';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import parse from 'autosuggest-highlight/parse';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import match from 'autosuggest-highlight/match';
 import { VariableSizeList as List } from 'react-window';
+import parse from 'autosuggest-highlight/parse';
+import match from 'autosuggest-highlight/match';
 
+// material core
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
 
 const renderRow = (props) => {
