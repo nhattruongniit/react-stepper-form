@@ -48,7 +48,7 @@ const ProductList = forwardRef(({ initData }, ref) => {
       <h3 className="mt-3 mb-3">Advance</h3>
       
       {data.map((item, index) => (
-       <ProductItem 
+        <ProductItem 
           key={index}
           index={index}
           ref={item.ref}
@@ -60,8 +60,6 @@ const ProductList = forwardRef(({ initData }, ref) => {
       <Grid container justify="flex-end">
         <Button color="primary" onClick={addQuestion}>Add More</Button>
       </Grid>
-
-      
     </>
   )
 })
