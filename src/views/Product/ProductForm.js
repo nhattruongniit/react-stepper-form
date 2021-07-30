@@ -15,9 +15,10 @@ import ProductList from './ProductList';
 // data
 import { optionsProduct } from 'data';
 
-const ProductForm = forwardRef(({ onSubmit, isSubmit }, ref) =>  {
+const ProductForm = forwardRef(({ onSubmit }, ref) =>  {
   // States
   const [products, setProducts] = useState({})
+
   // Refs
   const categoryRef = useRef({})
   const productListRef = useRef({})
@@ -80,7 +81,6 @@ const ProductForm = forwardRef(({ onSubmit, isSubmit }, ref) =>  {
         <ProductList 
           ref={productListRef}
           initData={products.subProducts || null}
-          isSubmit={isSubmit}
         />
 
         <Button variant="contained" color="primary" type="submit">

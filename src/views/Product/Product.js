@@ -14,6 +14,7 @@ import ProductForm from './ProductForm';
 function Product() {
   // States
   const [result, setResult] = useState({})
+  const [resetProduct, setResetProduct] = useState(Date.now());
 
   // Refs
   const productFormRefs = useRef({})
@@ -21,6 +22,7 @@ function Product() {
   function onSubmit(e) {
     e.preventDefault();
     setResult(productFormRefs.current.getData())
+    setResetProduct(Date.now())
   }
 
   return (
@@ -30,6 +32,7 @@ function Product() {
       <h3 className="mb-3">Simple</h3>
       
       <ProductForm 
+        key={resetProduct}
         ref={productFormRefs}
         onSubmit={onSubmit}
       />

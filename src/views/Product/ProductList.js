@@ -46,7 +46,6 @@ const ProductList = forwardRef(({ initData }, ref) => {
   return (
     <>
       <h3 className="mt-3 mb-3">Advance</h3>
-      
       {data.map((item, index) => (
         <ProductItem 
           key={index}
