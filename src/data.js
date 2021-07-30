@@ -26,30 +26,56 @@ export const dataFoods = [
   },
   {
     id: 6,
-    name: "Vegetable - Tomato"
+    name: "Vegetable - Tomato",
+    itemGroup: 'Vegetable'
   },
   {
     id: 7,
-    name: "Vegetable - Potato"
+    name: "Vegetable - Potato",
+    itemGroup: 'Vegetable'
   },
   {
     id: 8,
-    name: "Vegetable - Avocado"
+    name: "Vegetable - Avocado",
+    itemGroup: 'Vegetable'
   },
   {
     id: 9,
-    name: "Meals - Beef"
+    name: "Meals - Beef",
+    itemGroup: 'Meals'
   },
   {
     id: 10,
-    name: "Meals - Lamp"
+    name: "Meals - Lamp",
+    itemGroup: 'Meals'
   },
   {
     id: 11,
-    name: "Meals - Chicken"
+    name: "Meals - Chicken",
+    itemGroup: 'Meals'
   },
   {
     id: 12,
-    name: "Milk - Cream"
+    name: "Milk - Cream",
+    itemGroup: 'Milk'
   },
+]
+
+export const optionsProduct = [
+  {
+    id: 1,
+    name: 'Fruit'
+  },
+  {
+    id: 2,
+    name: 'Vegetable'
+  },
+  {
+    id: 3,
+    name: 'Meals'
+  },
+  {
+    id: 4,
+    name: 'Milk'
+  }
 ]

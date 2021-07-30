@@ -22,6 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
   autoComplete: {
     
+  },
+  navbar: {
+    textAlign: 'center',
+    '& a': {
+      textDecoration: 'none'
+    },
+    '& a.active button': {
+      color: '#3f51b5'
+    },
+    '& a button': {
+      color: '#000'
+    }
   }
 }));
 
