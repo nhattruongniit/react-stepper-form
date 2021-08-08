@@ -27,7 +27,7 @@ function Product() {
 
   return (
     <div>
-      <h1 style={{ textAlign: 'center' }}>Food</h1>
+      <h1 style={{ textAlign: 'center' }}>Product Food</h1>
       <br />
       <h3 className="mb-3">Simple</h3>
       

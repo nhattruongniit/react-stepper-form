@@ -2,4 +2,3 @@
 
 - Multiple & Group Autocomplete
 - react-hook-forms
-- react-jsonschema-form

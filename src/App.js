@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 // views
 import AutocompleteMaterial from 'views/AutocompleteMaterial/AutocompleteMaterial';
 import Product from 'views/Product/Product';
+import  DynamicHookForm from 'views/DynamicHookForm/DynamicHookForm'
 
 // styles
 import useStyles from './styles';
@@ -20,7 +21,10 @@ export default function App() {
           <Button color="primary">Autocomplete Material UI</Button>
         </NavLink>
         <NavLink to="/form-with-ref" activeClassName="active">
-          <Button color="primary">Form with Ref</Button>
+          <Button color="primary">Form with pure useRef</Button>
+        </NavLink>
+        <NavLink to="/dynamic-react-hook-form" activeClassName="active">
+          <Button color="primary">Dynamic React Hook Form</Button>
         </NavLink>
       </div>
       <br />
@@ -28,6 +32,7 @@ export default function App() {
         <Route exact path="/"><Product /></Route>
         <Route exact path="/form-with-ref"><Product /></Route>
         <Route exact path="/autocomplete-material"><AutocompleteMaterial /></Route>
+        <Route exact path="/dynamic-react-hook-form"><DynamicHookForm /></Route>
       </Switch>
     </div>
   );
