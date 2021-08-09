@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React, { Fragment, useRef } from 'react';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -12,6 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 // initData
 import { initData } from './initData';
@@ -42,44 +44,51 @@ const defaultLocation = {
   city: ''
 }
 
-const defaultForms = {
-  firstName: '',
-  lastName: '',
-  location: [defaultLocation]
-}
-
 export default function DynamicHookForm() {
-  const [forms, setForms] = useState(defaultForms)
+  const isRemoveFirstAddress = useRef(true);
   const { handleSubmit, control, reset, setValue, formState: { errors }} = useForm({
     resolver: yupResolver(schema),
-    defaultValues: forms
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      location: [defaultLocation]
+    }
   });
+  const { fields, append, remove } = useFieldArray(
+    {
+      control,
+      name: 'location',
+    }
+  )
 
   function handleAddMore() {
-    setForms(prevState => {
-      return {
-        ...prevState,
-        location: [...prevState.location, defaultLocation]
-      }
-    })
+    append(defaultLocation)
   }
 
   const onSubmit = data =>  {
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(data, null, 4))
-    setForms(defaultForms)
-    reset()
+    console.log('SUCCESS!! :-)\n\n', data )
+    // reset()
   };
 
   async function loadDataExists() {
     const res = await fakeRequest(initData);
-    const fields = ['firstName', 'lastName', 'location'];
-    console.log('res: ', res)
-    // setForms(res)
-    fields.forEach(field => setValue(field, res[field]))
-    setForms(res)
-  }
+    const fieldsDefault = ['firstName', 'lastName'];
 
-  console.log('forms: ', forms)
+    fieldsDefault.forEach(field => setValue(field, res[field]))
+    res.location.forEach(field => {
+      const newObj = {
+        address:  field.address,
+        district: field.district,
+        city: field.city
+      }
+      append(newObj)
+    })
+    setTimeout(() => {
+      if(!isRemoveFirstAddress.current) return;
+      isRemoveFirstAddress.current = false;
+      remove(0);
+    }, 0)
+  }
 
   return (
     <div>
@@ -100,7 +109,6 @@ export default function DynamicHookForm() {
                 <TextField 
                   fullWidth
                   id="firstName"
-                  name="firstName" 
                   label="First Name" 
                   variant="outlined" 
                   error={errors.firstName ? true : false}
@@ -118,7 +126,6 @@ export default function DynamicHookForm() {
                 <TextField 
                   fullWidth
                   id="lastName"
-                  name="lastName" 
                   label="Last Name" 
                   variant="outlined" 
                   error={errors.lastName ? true : false}
@@ -129,81 +136,95 @@ export default function DynamicHookForm() {
             />
           </Grid>
           <Grid item xs={12}><h3>Advance</h3></Grid>
-          {forms.location.map((_, index) => {
+         
+          {fields.map((item, index) => {
             return (
-              <Fragment key={`location-${index}`}>
-                <Grid item xs={4}>
-                  <Controller 
-                    name={`location[${index}].address`}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField 
-                        fullWidth
-                        id="address"
-                        name="address" 
-                        label="Address" 
-                        variant="outlined" 
-                        error={errors?.location?.[index]?.address ? true : false}
-                        helperText={errors?.location?.[index]?.address && 'please enter input'}
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Controller 
-                    name={`location[${index}].district`}
-                    control={control}
-                    render={({ field }) => (
-                      <FormControl 
-                        variant="outlined" 
-                        fullWidth 
-                        error={errors?.location?.[index]?.district ? true : false}
-                      >
-                        <InputLabel id="input-ward">District</InputLabel>
-                        <Select
-                          label="District"
+              <Fragment key={item.id}>
+                <Grid container item spacing={3} xs={11}>
+                  <Grid item xs={4}>
+                    <Controller 
+                      name={`location[${index}].address`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField 
                           fullWidth
-                          defaultValue={`location[${index}].district`}
+                          id="address"
+                          label="Address" 
+                          variant="outlined" 
+                          error={errors?.location?.[index]?.address ? true : false}
+                          helperText={errors?.location?.[index]?.address && 'please enter input'}
+                          defaultValue={item.address}
                           {...field}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Controller 
+                      name={`location[${index}].district`}
+                      control={control}
+                      render={({ field }) => (
+                        <FormControl 
+                          variant="outlined" 
+                          fullWidth 
+                          error={errors?.location?.[index]?.district ? true : false}
                         >
-                          <MenuItem value="" disabled />
-                          <MenuItem value="phunhuan">Phu Nhuan</MenuItem>
-                          <MenuItem value="binhthanh">Binh Thanh</MenuItem>
-                          <MenuItem value="govap">Go Vap</MenuItem>
-                        </Select>
-                        {errors?.location?.[index]?.district && <FormHelperText>Please choose ward</FormHelperText>}
-                      </FormControl>
-                    )}
-                  />
+                          <InputLabel id="input-ward">District</InputLabel>
+                          <Select
+                            label="District"
+                            fullWidth
+                            defaultValue={item.district}
+                            {...field}
+                          >
+                            <MenuItem value="" disabled />
+                            <MenuItem value="phunhuan">Phu Nhuan</MenuItem>
+                            <MenuItem value="binhthanh">Binh Thanh</MenuItem>
+                            <MenuItem value="govap">Go Vap</MenuItem>
+                          </Select>
+                          {errors?.location?.[index]?.district && <FormHelperText>Please choose ward</FormHelperText>}
+                        </FormControl>
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Controller 
+                      name={`location[${index}].city`}
+                      control={control}
+                      render={({ field }) => (
+                        <FormControl 
+                          variant="outlined" 
+                          fullWidth 
+                          error={errors?.location?.[index]?.city ? true : false}
+                        >
+                          <InputLabel id="input-city">City</InputLabel>
+                          <Select
+                            id="city"
+                            label="City"
+                            fullWidth
+                            defaultValue={item.city}
+                            {...field}
+                          >
+                            <MenuItem value="" disabled />
+                            <MenuItem value="hcm">TP.HCM</MenuItem>
+                            <MenuItem value="hanoi">Ha Noi</MenuItem>
+                            <MenuItem value="phuquoc">Phu Quoc</MenuItem>
+                          </Select>
+                          {errors?.location?.[index]?.city && <FormHelperText>Please choose city</FormHelperText>}
+                        </FormControl>
+                      )}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <Controller 
-                    name={`location[${index}].city`}
-                    control={control}
-                    render={({ field }) => (
-                      <FormControl 
-                        variant="outlined" 
-                        fullWidth 
-                        error={errors?.location?.[index]?.city ? true : false}
-                      >
-                        <InputLabel id="input-city">City</InputLabel>
-                        <Select
-                          id="city"
-                          label="City"
-                          fullWidth
-                          defaultValue={`location[${index}].city`}
-                          {...field}
-                        >
-                          <MenuItem value="" disabled />
-                          <MenuItem value="hcm">TP.HCM</MenuItem>
-                          <MenuItem value="hanoi">Ha Noi</MenuItem>
-                          <MenuItem value="phuquoc">Phu Quoc</MenuItem>
-                        </Select>
-                        {errors?.location?.[index]?.city && <FormHelperText>Please choose city</FormHelperText>}
-                      </FormControl>
-                    )}
-                  />
+                <Grid item xs={1}>
+                  {index !== 0 && (
+                    <IconButton 
+                      aria-label="remove"  
+                      color="secondary"
+                      onClick={() => remove(index)}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  )}
                 </Grid>
               </Fragment>
             )

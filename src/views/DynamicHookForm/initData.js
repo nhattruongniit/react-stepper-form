@@ -11,6 +11,11 @@ export const initData = {
       address: '220',
       district: 'govap',
       city: 'phuquoc'
-    }
+    },
+    {
+      address: '500',
+      district: 'binhthanh',
+      city: 'hanoi'
+    },
   ]
 }
