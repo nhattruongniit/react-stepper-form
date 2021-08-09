@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -14,6 +14,14 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Divider from '@material-ui/core/Divider';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 // initData
 import { initData } from './initData';
@@ -45,7 +53,11 @@ const defaultLocation = {
 }
 
 export default function DynamicHookForm() {
+  // State
+  const [users, setUsers] = useState({})
+  // Refs
   const isRemoveFirstAddress = useRef(true);
+  // useForms
   const { handleSubmit, control, reset, setValue, formState: { errors }} = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -67,7 +79,8 @@ export default function DynamicHookForm() {
 
   const onSubmit = data =>  {
     console.log('SUCCESS!! :-)\n\n', data )
-    // reset()
+    setUsers(data)
+    reset()
   };
 
   async function loadDataExists() {
@@ -83,11 +96,10 @@ export default function DynamicHookForm() {
       }
       append(newObj)
     })
-    setTimeout(() => {
-      if(!isRemoveFirstAddress.current) return;
-      isRemoveFirstAddress.current = false;
-      remove(0);
-    }, 0)
+    
+    if(!isRemoveFirstAddress.current) return;
+    isRemoveFirstAddress.current = false;
+    remove(0);
   }
 
   return (
@@ -240,6 +252,48 @@ export default function DynamicHookForm() {
           </Grid>
         </Grid>
       </form>
+
+      <br />
+      <Divider />
+      <h3>List Users</h3>
+      First Name: {users?.firstName} <br /><br />
+      Last Name: {users?.lastName}
+      <br /><br /><br />
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Address</TableCell>
+              <TableCell>District</TableCell>
+              <TableCell>City</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users?.location?.length > 0 ? (
+              <>
+                {users.location.map(row => (
+                  <TableRow key={row.order}>
+                    <TableCell scope="row">
+                      {row.address}
+                    </TableCell>
+                    <TableCell >
+                      {row.district}
+                    </TableCell>
+                    <TableCell>
+                      {row.city}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </>
+            ) : (
+              <TableRow>
+                <TableCell colSpan={4}>no address</TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       
     </div>
   )
