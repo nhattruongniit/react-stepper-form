@@ -7,13 +7,14 @@ const SelectInput = forwardRef(({ defaultValue, options, name, placeholder, ...r
   const [selected, setSelected] = useState(defaultValue);
   // Refs
   const selectRef = useRef();
+  const valueRef = useRef(null);
 
   useEffect(() => {
-    const ele = document.getElementById(name);
-    if(ele) {
-      ele.value = selected;
-      ele.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }))
-    }
+    const ele = valueRef.current;
+    if(!ele) return; 
+    
+    ele.value = selected;
+    ele.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
 
@@ -34,7 +35,10 @@ const SelectInput = forwardRef(({ defaultValue, options, name, placeholder, ...r
       <select
         id={name}
         name={name}
-        ref={ref}
+        ref={el => {
+          ref.current = el;
+          valueRef.current= el;
+        }}
         style={{ display: 'none' }}
         {...rest}
       >
