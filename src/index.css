@@ -35,3 +35,84 @@ code {
   padding-right: 5px;
   background-color: white;
 }
+
+/* select input styles */
+.select_wrapper {
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  padding: 15px 20px;
+  display: block;
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  font-size: 14px;
+  line-height: 16px;
+  height: 46px;
+  box-sizing: border-box;
+}
+
+.select_label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select_placeholder {
+  color: #949494;
+  font-size: 14px;
+}
+
+.select_arrow {
+  border: solid #3e3e3e;
+  border-width: 0 2px 2px 0px;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  flex-shrink: 0;
+  margin-top: -3px;
+  transition: transform 0.3s linear;
+}
+
+.select_options {
+  opacity: 1;
+  pointer-events: all;
+  margin-top: 2px;
+  box-shadow: -1px 1px 2px rgb(67 70 74 / 0%), -2px 2px 5px rgb(67 86 100 / 12%);
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 100%;
+  z-index: 2;
+  max-height: 200px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  background-color: #fff;
+  transition: all 0.3s linear;
+}
+
+.select_wrapper.open .select_options {
+  visibility: visible;
+  opacity: 1;
+}
+
+.select_wrapper.open .select_arrow {
+  transform: rotate(-135deg);
+}
+
+.select_options_item {
+  padding: 5px 8px;
+  cursor: pointer;
+  color: #3e3e3e;
+  font-size: 14px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.select_options_item:hover {
+  background-color: #d9d9d9;
+}
