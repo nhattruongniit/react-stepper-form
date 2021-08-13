@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 
 import SelectInput from 'components/SelectInput';
+import BaseInput from 'components/BaseInput';
 
 function CustomInput() {
   const { register, handleSubmit } = useForm();
@@ -33,6 +34,9 @@ function CustomInput() {
         ]}
         {...register('food')}
       />
+
+      <h4>Base Input</h4>
+      <BaseInput {...register('baseInput')} />
 
       <br /><br /><br /><br /><br />
       <Button type="submit" color="primary" variant="contained">Submit</Button>
