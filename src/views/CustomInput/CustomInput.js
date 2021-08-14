@@ -12,16 +12,14 @@ function CustomInput() {
 
   useEffect(() => {
     setTimeout(() => {
-      setValue('baseInput', '1234')
+      setValue('baseInput', 113);
       setValue('food', 'vegeatables')
     }, 1000)
   }, [setValue])
 
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2 style={{ textAlign: 'center' }}>Custom Input with react hook form</h2> 
-
       <h4>Select Input</h4>
       <SelectInput 
         placeholder="please choose options"
@@ -44,7 +42,7 @@ function CustomInput() {
       />
 
       <h4>Base Input</h4>
-      <BaseInput {...register('baseInput')} defaultValue="1234"/>
+      <BaseInput name="baseInput" defaultValue={123} {...register('baseInput')} />
 
       <br /><br /><br /><br /><br />
       <Button type="submit" color="primary" variant="contained">Submit</Button>
