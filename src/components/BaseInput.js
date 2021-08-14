@@ -1,16 +1,44 @@
 import React, { forwardRef, useState, useEffect, useRef } from 'react'
 
 const BaseInput =  forwardRef((props, ref) => {
-  const [count, setCount] = useState(props.defaultValue || 0);
-  const numberRef = useRef(props.defaultValue || 0);
+  const [forceRender, setForceRender] = useState(Date.now());
+  const [count, setCount] = useState();
+  const numberRef = useRef();
+  const canDispatch = useRef(false);
 
   useEffect(() => {
     const el = numberRef.current;
-    if (!el) return;
+    if (!el || !canDispatch.current) return;
+    // el.value = count;
+    // el.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+    const evt = new Event('input', { bubbles: true, cancelable: true });
+    Object.defineProperty(evt, 'target', {
+      writable: false,
+      value: {
+        value: Number(count),
+        name: props.name,
+      },
+    });
+    props.onChange(evt);
+  }, [count, props]);
 
-    el.value = count;
-    el.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
-  }, [count]);
+  useEffect(() => {
+    if(props.defaultValue) {
+      setCount(props.defaultValue)
+      canDispatch.current = true
+    }
+  }, [props.defaultValue])
+
+  useEffect(() => {
+    if(!numberRef.current) return;
+    // Overwrite setter, if react-form-hook set value. we can catch the value from it and do something
+    Object.defineProperty(numberRef.current, 'value', {
+      set(newValue) {
+        setCount(newValue)
+        setForceRender(Date.now())
+      }
+    })
+  }, [])
 
   function decrement() {
     setCount((prevState) => Number(prevState) - 1);
@@ -21,9 +49,11 @@ const BaseInput =  forwardRef((props, ref) => {
   }
 
   function onChange(e) {
+    canDispatch.current = true
     const { value } = e.target;
     setCount(value);
   }
+
   return (
     <div className="baseInput_wrapper">
       <input
@@ -35,7 +65,7 @@ const BaseInput =  forwardRef((props, ref) => {
         {...props}
         onInput={props.onChange}
       />
-      <input className="baseInput" type="number" value={count} onChange={onChange} />
+      <input key={forceRender} className="baseInput" type="number" value={count} onChange={onChange} />
       <div className="baseInput_actions">
         <div onClick={decrement}>decrement</div>
         <div className="baseInput_divider" /> 
