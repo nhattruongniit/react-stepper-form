@@ -52,6 +52,7 @@ function PureTable() {
     data: []
   });
   const [sortDirection, setSortDirection] = useState({});
+  const [textHeader, setTextHeader] = useState('');
 
   useEffect(() => {
     fetchData().then(res => {
@@ -99,9 +100,18 @@ function PureTable() {
     setSortDirection(newSortDirection)
   }
 
+  function getFilterRows(rows, filterKey) {
+    return rows.filter(row => {
+      return Object.values(row).some(item => (""+ item).toLowerCase().includes(filterKey))
+    })
+  }
+
   return (
     <div>
       <h2 style={{ textAlign: 'center' }}>React Pure Table</h2> 
+      Search: <input type="text" value={textHeader} onChange={e => setTextHeader(e.target.value)} />
+      <br />
+      <br />
       <table border={1} cellPadding={0} cellSpacing={0} className="pure-table">
         <thead>
           <tr>
@@ -111,7 +121,7 @@ function PureTable() {
           </tr>
         </thead>
         <tbody>
-          {userLocation.data.map((location, idx) => (
+          {getFilterRows(userLocation.data, textHeader).map((location, idx) => (
             <tr key={idx}>
               {userLocation.headers.map((header, headerIndex) => (
                 <td key={headerIndex}>{location[header]}</td>
