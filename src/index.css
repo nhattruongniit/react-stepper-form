@@ -167,3 +167,23 @@ code {
   opacity: 1;
   padding: 0 !important;
 }
+
+.colorFruit {
+  color: #ff9100;
+}
+
+.colorVegetable {
+  color: green;
+}
+
+.colorMeals {
+  color: #ffc400;
+}
+
+.colorMilk {
+  color: #2979ff;
+}
+
+.pure-table tr th {
+  cursor: pointer;
+}

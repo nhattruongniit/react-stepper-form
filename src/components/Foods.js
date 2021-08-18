@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
+import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
 
 // material core
@@ -71,13 +72,19 @@ function Foods() {
   }
 
   const renderGroup = params => {
+    console.log(params)
     return [
       <ListItem key={params.key}>
-        <span className="headerIndent">
-          <span>
+        <p className="headerIndent">
+          <span className={clsx(
+            params.group === 'Fruit' && 'colorFruit',
+            params.group === 'Vegetable' && 'colorVegetable',
+            params.group === 'Meals' && 'colorMeals',
+            params.group === 'Milk' && 'colorMilk',
+          )}> 
             {params.group}
           </span>
-        </span>
+        </p>
       </ListItem>,
       params.children,
     ];

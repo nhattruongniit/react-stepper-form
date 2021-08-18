@@ -26,13 +26,14 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     textAlign: 'center',
     '& a': {
-      textDecoration: 'none'
+      textDecoration: 'none',
     },
     '& a.active button': {
       color: '#3f51b5'
     },
     '& a button': {
-      color: '#000'
+      color: '#000',
+      textTransform: 'capitalize'
     }
   }
 }));
