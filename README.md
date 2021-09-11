@@ -9,3 +9,9 @@
 - Build pure table
   - Flattern data
   - Sort ASC, DESC
+
+## Storybook
+
+```bash
+$ npm run storybook
+```

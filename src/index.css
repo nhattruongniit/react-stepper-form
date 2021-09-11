@@ -187,3 +187,32 @@ code {
 .pure-table tr th {
   cursor: pointer;
 }
+
+.MuiPickersDay-current {
+  color: #5770c6 !important;
+}
+
+.MuiPickersToolbar-toolbar {
+  background-color: #5770c6 !important;
+}
+.MuiPickersDay-daySelected {
+  background-color: #5770c6 !important;
+  color: #fff !important;
+}
+
+/* date picker range */
+.DatePickerRange-day {
+  margin: 0 !important;
+  width: 40 !important;
+  border-radius: 0 !important;
+}
+
+.DatePickerRange-day-beginCap {
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+
+.DatePickerRange-day-endCap {
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}
